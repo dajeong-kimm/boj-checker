@@ -1,0 +1,38 @@
+package com.pick.repository;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Repository;
+
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+
+@Repository
+public class HandleFetcher {
+    public Set<Integer> fetchSolvedProblems(String username) {
+        Set<Integer> solvedProblems = new HashSet<>();
+        String url = "https://www.acmicpc.net/user/" + username;
+
+        try {
+            Document doc = Jsoup.connect(url).get();
+            String text = doc.text();
+
+            // Extract solved problem IDs
+            int start = text.indexOf("맞은 문제") + "맞은 문제".length();
+            text = text.substring(start);
+            start = text.indexOf("맞은 문제") + "맞은 문제".length();
+            text = text.substring(start);
+            int end = text.indexOf("시도했지만 맞지 못한 문제");
+            String problemText = text.substring(0, end);
+
+            for (String problem : problemText.split(",")) {
+                solvedProblems.add(Integer.parseInt(problem.trim()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return solvedProblems;
+    }
+}

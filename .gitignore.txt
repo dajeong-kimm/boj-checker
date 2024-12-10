@@ -1,0 +1,77 @@
+# Node.js 관련 (Vue.js)
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.env
+
+# Logs
+logs/
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Spring Boot 관련
+/target/
+*.iml
+*.class
+*.war
+*.jar
+*.project
+/.classpath
+/.settings/
+*.factorypath
+
+# 빌드 관련
+/.idea/
+*.DS_Store
+/.gradle/
+/build/
+
+# OS 별로 생성되는 파일
+*.swp
+*.swo
+*.tmp
+*.bak
+Thumbs.db
+.DS_Store
+._*
+Icon?
+ehthumbs.db
+Desktop.ini
+*.~lock.*
+*.sw?
+
+# IntelliJ/JetBrains 관련
+.idea/
+*.iml
+*.iws
+out/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# 로그 파일
+*.log
+
+# 환경 파일
+*.env
+
+# 테스트 결과
+test-results/
+coverage/
+
+# 배포 관련
+/deployment/
+*.bak
+
+# 기타
+.vscode/
+*.orig

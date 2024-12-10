@@ -1,0 +1,31 @@
+package com.pick;
+
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.pick.repository.HandleFetcher;
+
+@SpringBootApplication
+public class PickApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(PickApplication.class, args);
+
+	}
+	
+	private final HandleFetcher handleFetcher;
+	
+	public PickApplication(HandleFetcher handleFetcher) {
+        this.handleFetcher = handleFetcher;
+    }
+	
+	@Override
+    public void run(String... args) throws Exception {
+        // Replace "username" with the BOJ handle of a test user
+        String testUsername = "test_user";
+        Set<Integer> solvedProblems = handleFetcher.fetchSolvedProblems(testUsername);
+        System.out.println("Solved Problems for " + testUsername + ": " + solvedProblems);
+    }
+
+}

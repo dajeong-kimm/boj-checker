@@ -1,0 +1,51 @@
+package com.bojtracker.repository;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Repository;
+
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+@Repository
+public class HandleFetcher {
+    public Set<Integer> fetchSolvedProblems(String username) {
+        Set<Integer> solvedProblems = new HashSet<>();
+        String url = "https://www.acmicpc.net/user/" + username;
+
+        try {
+            Document doc = Jsoup.connect(url).get();
+            String text = doc.text();
+
+            // Locate the section containing problem numbers
+            int start = text.indexOf("맞은 문제");
+            if (start == -1) {
+                return solvedProblems; // No problems found
+            }
+
+            text = text.substring(start + "맞은 문제".length());
+            int end = text.indexOf("시도했지만 맞지 못한 문제");
+            if (end == -1) {
+                end = text.length(); // Use till the end if no marker found
+            }
+            String problemText = text.substring(0, end);
+
+            // Extract problem numbers using regex
+            Pattern pattern = Pattern.compile("\\b\\d+\\b"); // Match only numbers
+            Matcher matcher = pattern.matcher(problemText);
+
+            while (matcher.find()) {
+                solvedProblems.add(Integer.parseInt(matcher.group()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.err.println("Failed to parse a problem number.");
+        }
+
+        return solvedProblems;
+    }
+}

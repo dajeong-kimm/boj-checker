@@ -1,0 +1,9 @@
+package com.bojtracker.service;
+
+import com.bojtracker.dto.UserProblemStatus;
+
+import java.util.List;
+
+public interface ProblemService {
+    List<UserProblemStatus> getUserProblemStatuses(int problemId);
+}
